@@ -1,0 +1,38 @@
+################### vCenter Connectivity Details #######################
+Write-Host “Please enter the vCenter Host IP Address:” -ForegroundColor Yellow -NoNewline
+$VMHost = Read-Host
+Write-Host “Please enter the vCenter Username:” -ForegroundColor Yellow -NoNewline
+$User = Read-Host
+Write-Host “Please enter the vCenter Password:” -ForegroundColor Yellow -NoNewline
+$Pass = Read-Host
+Connect-VIServer -Server $VMHost -User $User -Password $Pass
+################### Please enter the Cluster to ATSCheck/ATSDisable  #######################
+Write-Host “Clusters Associated with this vCenter:” -ForegroundColor Green
+$VMcluster = ‘*’
+ForEach ($VMcluster in (Get-Cluster -name $VMcluster)| sort)
+{
+Write-Host $VMcluster
+}
+Write-Host “Please enter the Cluster to ATSCheck/ATSDisable ” -ForegroundColor Yellow -NoNewline
+$VMcluster = Read-Host
+
+############ ATS check  #############
+#this script checks all hosts in environment for VAAI ATS heartbeat config, value 0 = disabled, 1 = enabled
+Write-Host "Ready to ATSCheck? " -ForegroundColor Yellow -NoNewline
+Write-Host " Y/N:" -ForegroundColor Red -NoNewline
+$ATScheck = Read-Host
+
+if ($ATScheck -eq "y") {
+Write-Host “ATScheck” -ForegroundColor Green
+Get-Cluster $VMcluster | Get-VMHost | Get-AdvancedSetting -Name VMFS3.UseATSForHBOnVMFS5 | ft Entity, Name, Value -AutoSize
+}
+############ ATS Disable  #############
+#this script checks all hosts in environment for VAAI ATS heartbeat config, value 0 = disabled, 1 = enabled
+Write-Host "Ready to ATSDisable? " -ForegroundColor Yellow -NoNewline
+Write-Host " Y/N:" -ForegroundColor Red -NoNewline
+$ATSdisable = Read-Host
+
+if ($ATSdisable -eq "y") {
+#this script sets the VAAI ATS Heartbeat to disabled for all hosts in vCenter
+Get-Cluster $VMcluster |Get-VMHost | Get-AdvancedSetting -Name VMFS3.UseATSForHBOnVMFS5 | Set-AdvancedSetting -Value 0 -Confirm:$false
+}
