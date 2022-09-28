@@ -1,0 +1,7 @@
+foreach($vm in Get-VM){
+    $vmxPath = $vm.ExtensionData.Config.Files.VmPathName
+    $ds = Get-Datastore -Name $vmxPath.Split(']')[0].TrimStart('[')
+    New-PSDrive -Name DS -PSProvider VimDatastore -Root '\' -Location $ds > $null
+    Get-ChildItem -Path "DS:/$($vm.Name)/vmware*.log" | Remove-Item -Confirm:$false
+    Remove-PSDrive -Name DS -Confirm:$false
+}
