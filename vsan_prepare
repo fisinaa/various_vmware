@@ -1,0 +1,6 @@
+#For simple HDD
+for i in `esxcfg-scsidevs -l | grep naa.*`; do partedUtil delete "/vmfs/devices/disks/$i" 1; done
+for i in `esxcfg-scsidevs -l | grep naa.*`; do partedUtil delete "/vmfs/devices/disks/$i" 2; done
+#For nvme 
+for i in `esxcfg-scsidevs -l | grep t10.*`; do partedUtil delete "/vmfs/devices/disks/$i" 2; done
+for i in `esxcfg-scsidevs -l | grep t10.*`; do partedUtil delete "/vmfs/devices/disks/$i" 1; done
