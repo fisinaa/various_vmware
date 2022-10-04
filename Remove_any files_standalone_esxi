@@ -1,4 +1,4 @@
-$esxName = 'mir-esx43'
+$esxName = 'type_here_your_hostname'
 
 $cred = Get-Credential -Message 'Enter credentials'
 
