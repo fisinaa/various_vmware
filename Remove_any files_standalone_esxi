@@ -1,0 +1,22 @@
+$esxName = 'mir-esx43'
+
+$cred = Get-Credential -Message 'Enter credentials'
+
+$cmdsub = @'
+rm -f /vsantraces/vsanObserver--*.gz
+rm -f /vsantraces/vsantracesUrgent--*.gz
+rm -f /vsantraces/vsantraces--*.gz
+'@
+$cmdsub0 = @'
+rm -r -v /tmp/_*
+'@
+
+#$esx = Connect-VIServer -Name $esxName
+
+#$esx = Get-VMHost -Name $esxName
+
+$session = New-SSHSession -ComputerName $esxName -Credential $cred
+$result = Invoke-SSHCommand -SSHSession $session -Command $cmdSub $cmdSub0
+#$result = Invoke-SSHCommand -SSHSession $session -Command $cmdSub0
+
+Remove-SSHSession -SSHSession $session | Out-Null
