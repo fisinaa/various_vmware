@@ -9,3 +9,4 @@ partx -u /dev/sda
 pvresize /dev/sda3
 lvdisplay
 lvextend -r  /dev/rhel/root /dev/sda3
+lsblk | grep sda
