@@ -1,0 +1,11 @@
+Растянуть существующий lvm
+
+all rescan :  echo "- - -" | tee /sys/class/scsi_host/host*/scan
+echo 1 > /sys/block/sda/device/rescan
+lsblk
+partprobe
+parted ---pretend-input-tty /dev/sda resizepart 3 100%
+partx -u /dev/sda
+pvresize /dev/sda3
+lvdisplay
+lvextend -r  /dev/rhel/root /dev/sda3
