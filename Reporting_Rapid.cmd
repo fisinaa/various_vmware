@@ -94,3 +94,6 @@ foreach ($server in $servers) {
 }
 
 Write-Host "📌 Все экспорты завершены!"
+
+
+"C:\Program Files (x86)\RobWare\RVTools\RVTools.exe" -passthroughAuth -s mir-m01-vc01.alrosa.ru -c ExportAll2xlsx -d "C:\scripts\Reports" -f "RVToolReport.mir-m01-vc01.alrosa.ru.xlsx"
