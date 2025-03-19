@@ -97,3 +97,69 @@ Write-Host "📌 Все экспорты завершены!"
 
 
 "C:\Program Files (x86)\RobWare\RVTools\RVTools.exe" -passthroughAuth -s mir-m01-vc01.alrosa.ru -c ExportAll2xlsx -d "C:\scripts\Reports" -f "RVToolReport.mir-m01-vc01.alrosa.ru.xlsx"
+
+
+# Определяем путь к RVTools.exe
+$BIN = "C:\Program Files (x86)\RobWare\RVTools\RVTools.exe"
+
+# Папка для отчетов
+$ReportDir = "C:\temp\Reports"
+
+# Список серверов vCenter
+$servers = @(
+    "mir-m01-vc01.alrosa.ru",
+    "mir-vcs02.alrosa.ru",
+    "mir-w01-vc01.alrosa.ru",
+    "udcrud-w01-vc01.alrosa.ru",
+    "msk-m01-vc01.alrosa.ru",
+    "MSK-VCENTER01.alrosa.ru",
+    "msk-w01-vc01.alrosa.ru",
+    "msk-w02-vc01.alrosa.ru"
+)
+
+# Создаем папку для отчетов, если её нет
+if (!(Test-Path -Path $ReportDir)) {
+    New-Item -ItemType Directory -Path $ReportDir -Force | Out-Null
+}
+
+# Функция для запуска RVTools
+function Export-RVToolsReport {
+    param (
+        [string]$Server
+    )
+
+    # Формируем путь к файлу
+    $ReportFile = "RVToolReport.$Server.xlsx"
+    $FullPath = Join-Path -Path $ReportDir -ChildPath $ReportFile
+
+    # Формируем аргументы
+    $arguments = @(
+        "-passthroughAuth"
+        "-s", $Server
+        "-c", "ExportAll2xlsx"
+        "-d", $ReportDir
+        "-f", $ReportFile
+    )
+
+    # Выводим команду для отладки
+    Write-Host "➡ Запуск экспорта для $Server..."
+    Write-Host "`"$BIN`" $($arguments -join ' ')"
+
+    # Запуск RVTools
+    & $BIN @arguments
+
+    # Проверяем, появился ли файл
+    Start-Sleep -Seconds 5
+    if (Test-Path $FullPath) {
+        Write-Host "✅ Файл успешно сохранен: $FullPath"
+    } else {
+        Write-Host "❌ Ошибка: файл не найден после экспорта!"
+    }
+}
+
+# Запуск экспорта для каждого сервера
+foreach ($server in $servers) {
+    Export-RVToolsReport -Server $server
+}
+
+Write-Host "📌 Все экспорты завершены!"
