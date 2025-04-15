@@ -1,0 +1,6 @@
+[AP] (1d42d93d) command: 'Invoke: Transfer.FileToText { (EString) FilePath = nfc://conn:mir-vcs02.alrosa.ru,nfchost:host-1526,stg:datastore-2673517@BACKUPT/BACKUPT.vmx; (EInt64) SizeLimit = 2097152; }'
+[15.04.2025 16:06:54.697]    <48> [0011]    Info (3)            [AP] (1d42d93d) output: <VCPCommandResult result="false" exception="Cannot get service content.&#x0A;Soap fault. SSL_ERROR_SYSCALL&#x0A;EOF was observed that violates the SSL/TLS protocol.
+The client probably provided invalid authentication information.Detail: &apos;SSL/TLS handshake failed&apos;, endpoint: &apos;https://mir-vcs02.alrosa.ru:443/sdk&apos;&#x0A;SOAP connection is not available. 
+Connection ID: [mir-vcs02.alrosa.ru].&#x0A;Failed to create NFC download stream. NFC path: [nfc://conn:mir-vcs02.alrosa.ru,nfchost:host-1526,stg:datastore-2673517@BACKUPT/BACKUPT.vmx].&#x0A;--tr:Unable to open 
+source file [nfc://conn:mir-vcs02.alrosa.ru,nfchost:host-1526,stg:datastore-2673517@BACKUPT/BACKUPT.vmx].&#x0A;--tr:Failed to copy local file. Source: [nfc://conn:mir-vcs02.alrosa.ru,nfchost:host-1526,stg:datastore-2673517@BACKUPT/BACKUPT.vmx].
+Target: [MemFs://FileToTextSlot_{f5b19bdf-211c-472b-b6a4-2e4be6e62a66}].&#x0A;Agent failed to process method {Transfer.FileToText}." />
