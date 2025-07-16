@@ -1,1 +1,7 @@
-
+root@mir-cib-vcsa01 [ ~ ]# service-control --status
+Running:
+ applmgmt lookupsvc lwsmd observability vmafdd vmcad vmdird vmware-eam vmware-envoy vmware-pod vmware-postgres-archiver vmware-rhttpproxy vmware-sca vmware-statsmonitor vmware-trustmanagement vmware-vdtc vmware-vmon vmware-vpostgres vtsdb
+StartPending:
+ vmware-stsd
+Stopped:
+ observability-vapi pschealth vlcm vmcam vmonapi vmware-analytics vmware-certificateauthority vmware-certificatemanagement vmware-cis-license vmware-content-library vmware-hvc vmware-imagebuilder vmware-infraprofile vmware-netdumper vmware-perfcharts vmware-rbd-watchdog vmware-sps vmware-topologysvc vmware-updatemgr vmware-vapi-endpoint vmware-vcha vmware-vpxd vmware-vpxd-svcs vmware-vsan-health vmware-vsm vsphere-ui vstats wcp
