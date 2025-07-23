@@ -1,0 +1,10 @@
+# VCenter you are connecting too
+$vcserver = "MyVcenter.somewhere.local"
+Connect-VIServer $vcserver
+# Loop to make changes to Network Adapter from List of Servers that needs to be changed
+$serverlist = Get-Content "C:\Scripts\vlan_Test\vms.txt"
+ForEach ($server in $serverlist)
+{
+$NIC = Get-NetworkAdapter -VM $server
+Set-NetworkAdapter -NetworkAdapter $NIC -NetworkName "MyNewVLan 1234" -Confirm:$false
+}
