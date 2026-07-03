@@ -1,0 +1,12 @@
+---
+vcenter_username: "y_user_name"
+vcenter_hostname: "y_vcenter_name"
+vcenter_datacenter: "y_datastore_name"
+vcenter_cluster: "y_cluster_name"
+vcenter_validate_certs: false
+#vcenter_username: "y_username"
+vcenter_password: "y_superpassword"
+#vm_name: "ansible_creation_vm"
+#vcenter_destination_folder: "test"
+vm_state: "poweroff"
+#vm_template: "y_tmpl_name"

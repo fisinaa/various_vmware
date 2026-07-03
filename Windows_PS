@@ -1,0 +1,6 @@
+Enter-PsSession -ComputerName ****
+netsh advfirewall show all
+Set-NetFirewallProfile -All -Enabled False 
+Get-Disk; Get-Partition; 
+$size = (Get-PartitionSupportedSize -DiskNumber * -PartitionNumber *)
+Resize-Partition -DiskNumber * -PartitionNumber * -Size $size.SizeMax

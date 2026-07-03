@@ -1,0 +1,17 @@
+$esxName = Get-Content -Path "C:\Docs\Script\vmware_host.txt"
+$cred = Get-Credential -Message 'Enter credentials'
+foreach($esxNames in $esxName)
+{
+
+$cmdsub = @'
+rm -f /vsantraces/vsantraces--*.gz 
+'@
+
+#$esx = Get-VMHost -Name $esxNames
+
+$session = New-SSHSession -ComputerName $esxName -Credential $cred –AcceptKey
+
+$result = Invoke-SSHCommand -SSHSession $session -Command $cmdSub
+
+Remove-SSHSession -SSHSession $session | Out-Null
+}

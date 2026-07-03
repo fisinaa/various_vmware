@@ -1,0 +1,42 @@
+---
+- name: deploy vm
+  hosts: localhost
+  become: false
+  gather_facts: false
+
+  collections:
+    - community.vmware
+  pre_tasks:
+    - include_vars:
+        file: /home/deploy_vm/y_vars_file.yml
+        name: varss
+
+  tasks:
+    - name: CloneVM
+      vmware_guest:
+        hostname: "{{ varss.vcenter_hostname }}"
+        username: "{{ varss.vcenter_username }}"
+        password: "{{ varss.vcenter_password }}"
+        validate_certs: "{{ varss.vcenter_validate_certs }}"
+        datacenter: "{{ varss.vcenter_datacenter }}"
+        cluster: "{{ varss.vcenter_cluster }}"
+        name: "y_vm_name"
+        folder: "y_folder_name"
+        template: "your_template"
+#       customization_spec:
+        disk:
+        - size_gb: 150
+          datastore: your_datastore
+          controller_type: "paravirtual"
+          controller_number: 0
+          unit_number: 2
+        hardware:
+            memory_mb: 16384
+            num_cpus: 4
+            num_cpu_cores_per_socket: 2
+        networks:
+        - name: "y_network_name"
+          device_name: "vmxnet3"
+          ip: "your_ip_addresses"
+          netmask: "255.255.255.0"
+          gateway: "your_gateway"
